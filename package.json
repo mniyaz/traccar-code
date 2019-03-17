@@ -1,0 +1,32 @@
+{
+  "name": "traccar",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@material-ui/core": "^3.0.1",
+    "@material-ui/icons": "^3.0.1",
+    "ag-grid-community": "^20.0.0",
+    "ag-grid-react": "^20.0.0",
+    "leaflet": "^1.3.4",
+    "react": "^16.4.2",
+    "react-container-dimensions": "^1.4.1",
+    "react-dom": "^16.4.2",
+    "react-leaflet": "^2.0.1",
+    "react-redux": "^5.0.7",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "^1.1.5",
+    "redux": "^4.0.0"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "proxy": {
+    "/api": {
+      "target": "http://localhost:8082",
+      "ws": true
+    }
+  }
+}
