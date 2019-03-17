@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { updateDevices } from './actions';
+import React, {Component, Fragment} from 'react';
+import {connect} from 'react-redux';
+import {updateDevices} from './actions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,52 +10,47 @@ import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import IconButton from '@material-ui/core/IconButton';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import Divider from '@material-ui/core/Divider';
+import axios from 'axios';
 
 const mapStateToProps = state => ({
-  devices: state.devices
+    devices: state.positionReducer.devices
 });
 
 class DeviceList extends Component {
-  componentDidMount() {
-    
-  }
+    componentDidMount() {
 
-  render() {
-	  fetch('/api/devices').then(response => {
-      if (response.ok) {
-        console.log('response', response)
-		  
-        response.json().then(devices => {
-          this.props.dispatch(updateDevices(devices));
-		  
+    }
+
+    render() {
+        axios.get('/api/devices').then(devices => {
+                    this.props.dispatch(updateDevices(devices));
         });
-      }
-    });
-    const devices = this.props.devices.map(device =>
-      <Fragment key={device.id.toString()}>
-        <ListItem button>
-          <Avatar>
-            <LocationOnIcon />
-          </Avatar>
-          <ListItemText primary={device.name} secondary={device.uniqueId} />
-          <ListItemSecondaryAction>
-            <IconButton>
-              <MoreVertIcon />
-            </IconButton>
-          </ListItemSecondaryAction>
-        </ListItem>
-        <li>
-          <Divider variant="inset" />
-        </li>a
-      </Fragment>
-    );
+        const devices = this.props.devices.map(device =>
+            <Fragment key={device.id.toString()}>
+                <ListItem button>
+                    <Avatar>
+                        <LocationOnIcon/>
+                    </Avatar>
+                    <ListItemText primary={device.name} secondary={device.uniqueId}/>
+                    <ListItemSecondaryAction>
+                        <IconButton>
+                            <MoreVertIcon/>
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+                <li>
+                    <Divider variant="inset"/>
+                </li>
+                a
+            </Fragment>
+        );
 
-    return (
-      <List>
-        {devices}
-      </List>
-    );
-  }
+        return (
+            <List>
+                {devices}
+            </List>
+        );
+    }
 }
 
 export default connect(mapStateToProps)(DeviceList);
